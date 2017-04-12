@@ -20,10 +20,8 @@ public class MoveRobotTask implements Runnable {
 				performOperationsOnPreviousLoc();
 				robotPosX += deltaX;
 				robotPosY += deltaY;
-				if (counter <= 2) {
-					robotsLoc[counter] = new Tuple(robotPosX, robotPosY);
-				}
-				robotsLoc[counter % 3].changePos(robotPosX, robotPosY);
+				if (counter <= 2) robotsLoc[counter] = new Tuple(robotPosX, robotPosY);
+				robotsLoc[getCurIndexOfPos()].changePos(robotPosX, robotPosY);
 				counter++;
 				map[robotPosY][robotPosX] = counter;
 			}
@@ -32,7 +30,7 @@ public class MoveRobotTask implements Runnable {
 	
 	public void performOperationsOnPreviousLoc() {
 		if (counter > 2) {
-			Tuple existingCoor = robotsLoc[counter % 3];
+			Tuple existingCoor = robotsLoc[getCurIndexOfPos()];
 			map[existingCoor.existingY][existingCoor.existingX] = 0;
 		}
 	}
@@ -55,10 +53,9 @@ public class MoveRobotTask implements Runnable {
 	
 	private boolean notExistingPath(int newPosX,int newPosY) {
 		for (int i = 0 ; i < robotsLoc.length ; i++ ) {
-			if (robotsLoc[i] != null){
+			if (robotsLoc[i] != null)
 				if (getCurIndexOfPos() != i && robotsLoc[i].existingX == newPosX && robotsLoc[i].existingY == newPosY) 
 					return false;
-			}
 		}
 		
 		return true;
