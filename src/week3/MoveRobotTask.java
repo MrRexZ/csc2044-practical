@@ -3,6 +3,8 @@ package week3;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+//SNAKE ROBOT IMPLEMENTATION
 public class MoveRobotTask implements Runnable {
 	
 	private int[][] map;
